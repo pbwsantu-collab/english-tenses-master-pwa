@@ -29,26 +29,20 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     body { font-family: 'Inter', system-ui, sans-serif; }
-    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); }
     .card-hover { transition: all 0.25s ease; }
     .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.15); }
     .quiz-option { transition: all 0.15s ease; }
     .quiz-option.correct { background: #22c55e !important; color: white !important; border-color: #16a34a !important; }
     .quiz-option.wrong { background: #ef4444 !important; color: white !important; border-color: #dc2626 !important; }
     .progress-bar { transition: width 0.4s ease; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #1e293b; }
-    ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 4px; }
     .section { display: none; }
     .section.active { display: block; animation: fadeIn 0.35s ease; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
     @media print {
       .no-print { display: none !important; }
-      .section { display: block !important; }
+      .section { display: block !important; page-break-inside: avoid; }
       body { background: white !important; color: black !important; }
-      .print-only { display: block !important; }
     }
-    .print-only { display: none; }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
@@ -56,7 +50,7 @@
   <div id="installBanner" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:w-96 bg-primary-700 text-white p-4 rounded-2xl shadow-2xl z-50 flex items-center justify-between gap-3 no-print">
     <div>
       <p class="font-semibold">Install Tenses Master</p>
-      <p class="text-sm text-primary-100">Use offline • Full screen experience</p>
+      <p class="text-sm text-primary-100">Use offline • Full screen</p>
     </div>
     <div class="flex gap-2">
       <button onclick="document.getElementById('installBanner').classList.add('hidden')" class="px-3 py-1.5 rounded-lg bg-primary-800 text-sm">Later</button>
@@ -84,7 +78,14 @@
     <nav id="sidebar" class="md:w-64 flex-shrink-0 no-print">
       <div class="sticky top-20 space-y-1 bg-slate-800/50 rounded-2xl p-3 border border-slate-700">
         <button data-section="home" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium bg-primary-600 text-white">🏠 Home</button>
+        <button data-section="rules" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">📘 All Rules</button>
+        <button data-section="present" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">▶ Present</button>
+        <button data-section="past" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">◀ Past</button>
+        <button data-section="future" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">▶ Future</button>
+        <button data-section="verbs" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">🔄 Strong & Weak</button>
+        <button data-section="confusing" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">⚠️ Confusing Verbs</button>
         <button data-section="quiz" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">🎯 Question Bank</button>
+        <button data-section="conjugation" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">📋 Conjugation</button>
         <div class="pt-3 border-t border-slate-700 mt-2">
           <p class="text-xs text-slate-500 px-4 mb-1">Progress</p>
           <div class="px-4">
@@ -98,39 +99,257 @@
     </nav>
 
     <main class="flex-1 min-w-0">
+
+      <!-- HOME -->
       <section id="home" class="section active">
-        <div class="bg-gradient-to-br from-primary-700 to-primary-900 rounded-3xl p-8 mb-8 relative overflow-hidden">
+        <div class="bg-gradient-to-br from-primary-700 to-primary-900 rounded-3xl p-8 mb-8">
           <h2 class="text-3xl md:text-4xl font-extrabold mb-3">Master English Tenses</h2>
-          <p class="text-primary-100 text-lg mb-6 max-w-xl">সম্পূর্ণ নিয়ম • বাংলা ব্যাখ্যা • 110+ প্রশ্ন • Offline Ready</p>
+          <p class="text-primary-100 text-lg mb-6">সম্পূর্ণ নিয়ম • বাংলা ব্যাখ্যা • 110+ প্রশ্ন • Offline Ready</p>
           <div class="flex flex-wrap gap-3">
-            <button onclick="showSection('quiz')" class="px-5 py-2.5 bg-white text-primary-800 font-semibold rounded-xl shadow-lg hover:bg-primary-50 transition">Take Quiz</button>
-            <button onclick="speakText('Welcome to Tenses Master. Complete English grammar guide with Bengali explanations.')" class="px-5 py-2.5 bg-primary-500/30 border border-white/30 text-white font-semibold rounded-xl hover:bg-primary-500/50 transition">🔊 Listen</button>
+            <button onclick="showSection('rules')" class="px-5 py-2.5 bg-white text-primary-800 font-semibold rounded-xl shadow-lg">Start Learning</button>
+            <button onclick="showSection('quiz')" class="px-5 py-2.5 bg-primary-500/30 border border-white/30 text-white font-semibold rounded-xl">Take Quiz</button>
+            <button onclick="speakText('Welcome to Tenses Master. Complete English grammar guide with Bengali explanations.')" class="px-5 py-2.5 bg-primary-500/30 border border-white/30 text-white font-semibold rounded-xl">🔊 Listen</button>
           </div>
         </div>
         <div class="grid md:grid-cols-3 gap-4 mb-8">
-          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover">
-            <div class="text-3xl mb-2">📘</div>
-            <h3 class="font-bold text-lg mb-1">All Rules Covered</h3>
-            <p class="text-slate-400 text-sm">Art. 172–190 with Bengali.</p>
-          </div>
-          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover">
-            <div class="text-3xl mb-2">🎯</div>
-            <h3 class="font-bold text-lg mb-1">110 Questions</h3>
-            <p class="text-slate-400 text-sm">Interactive with instant feedback.</p>
-          </div>
-          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover">
-            <div class="text-3xl mb-2">📱</div>
-            <h3 class="font-bold text-lg mb-1">PWA • Offline</h3>
-            <p class="text-slate-400 text-sm">Install and study offline.</p>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover"><div class="text-3xl mb-2">📘</div><h3 class="font-bold text-lg mb-1">All Rules</h3><p class="text-slate-400 text-sm">Art. 172–190 with Bengali.</p></div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover"><div class="text-3xl mb-2">🎯</div><h3 class="font-bold text-lg mb-1">110 Questions</h3><p class="text-slate-400 text-sm">Instant feedback & score.</p></div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover"><div class="text-3xl mb-2">📱</div><h3 class="font-bold text-lg mb-1">PWA Offline</h3><p class="text-slate-400 text-sm">Install and study offline.</p></div>
+        </div>
+        <div class="bg-slate-800/60 rounded-2xl p-6 border border-slate-700">
+          <h3 class="font-bold text-xl mb-4">Quick Tense Chart</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="bg-primary-800 text-left"><th class="p-3">Tense</th><th class="p-3">Indefinite</th><th class="p-3">Continuous</th><th class="p-3">Perfect</th><th class="p-3">Perfect Continuous</th></tr></thead>
+              <tbody class="divide-y divide-slate-700">
+                <tr><td class="p-3 font-medium">Present</td><td class="p-3">I write</td><td class="p-3">I am writing</td><td class="p-3">I have written</td><td class="p-3">I have been writing</td></tr>
+                <tr class="bg-slate-800/50"><td class="p-3 font-medium">Past</td><td class="p-3">I wrote</td><td class="p-3">I was writing</td><td class="p-3">I had written</td><td class="p-3">I had been writing</td></tr>
+                <tr><td class="p-3 font-medium">Future</td><td class="p-3">I shall write</td><td class="p-3">I shall be writing</td><td class="p-3">I shall have written</td><td class="p-3 text-slate-500">rarely used</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
+      <!-- RULES -->
+      <section id="rules" class="section">
+        <h2 class="text-2xl font-bold mb-2">Complete Tense Rules</h2>
+        <p class="text-slate-400 mb-6">সম্পূর্ণ নিয়ম • বাংলা ব্যাখ্যাসহ</p>
+        <div class="space-y-6">
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-primary-400 mb-2">172. What is Tense?</h3>
+            <p class="mb-2">The Tense is the change of form in a verb to express the time of an action.</p>
+            <p class="text-blue-300 text-sm mb-3">ক্রিয়ার যে পরিবর্তন দ্বারা কাজের সময় বোঝায় তাকে Tense বলে।</p>
+            <p><strong>Three principal tenses:</strong> Present • Past • Future</p>
+            <p class="mt-2"><strong>Each has four forms:</strong> Indefinite, Continuous, Perfect, Perfect Continuous</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-emerald-400 mb-2">174. Present Indefinite (Simple Present)</h3>
+            <p class="font-mono text-sm bg-slate-900 p-2 rounded mb-3">S + V1 (s/es) &nbsp;|&nbsp; do/does + not + V1</p>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+              <li><strong>Universal truth</strong> — The earth is round. <span class="text-blue-300">(নিত্য সত্য)</span></li>
+              <li><strong>Habit</strong> — He works hard. <span class="text-blue-300">(অভ্যাস)</span></li>
+              <li><strong>Future (context)</strong> — The school closes on the 15th.</li>
+              <li><strong>Historic Present</strong> — Alexander now rushes upon the enemy.</li>
+            </ul>
+            <p class="mt-2 text-amber-300 text-sm">Note: 3rd person singular takes s/es.</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-emerald-400 mb-2">175. Present Continuous</h3>
+            <p class="font-mono text-sm bg-slate-900 p-2 rounded mb-3">am / is / are + V-ing</p>
+            <p>Action going on now or near-future arrangement.</p>
+            <p class="text-blue-300 text-sm">কাজটি বর্তমানে চলিতেছে।</p>
+            <p class="mt-2 text-amber-300 text-sm">⚠️ Not with: believe, know, like, love, want, belong, consist…</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-emerald-400 mb-2">176. Present Perfect</h3>
+            <p class="font-mono text-sm bg-slate-900 p-2 rounded mb-3">has / have + V3</p>
+            <p>Just finished • Past action with present result • Period not finished.</p>
+            <p class="text-blue-300 text-sm">এইমাত্র শেষ বা ফল এখনও চলছে।</p>
+            <p class="mt-2 text-amber-300 text-sm">⚠️ Cannot take yesterday, last night, ago…</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-emerald-400 mb-2">177. Present Perfect Continuous</h3>
+            <p class="font-mono text-sm bg-slate-900 p-2 rounded mb-3">has/have + been + V-ing</p>
+            <p><strong>for</strong> = period &nbsp;|&nbsp; <strong>since</strong> = point of time</p>
+            <p class="text-blue-300 text-sm">পূর্বে শুরু হয়ে এখনও চলছে।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-amber-400 mb-2">178–181. Past Tenses</h3>
+            <p><strong>Past Indefinite:</strong> V2 / did + V1 — I saw him yesterday.</p>
+            <p><strong>Past Continuous:</strong> was/were + V-ing — He was reading when I came.</p>
+            <p><strong>Past Perfect:</strong> had + V3 — He had left before I came. <em>(Before before, after after)</em></p>
+            <p><strong>Past Perfect Continuous:</strong> had been + V-ing</p>
+            <p class="text-blue-300 text-sm mt-2">অধিকতর অতীত ক্রিয়াটি বুঝাইতে Past Perfect।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-violet-400 mb-2">182–184. Future Tenses</h3>
+            <p><strong>Future Indefinite:</strong> shall/will + V1</p>
+            <p><strong>Future Continuous:</strong> shall/will + be + V-ing</p>
+            <p><strong>Future Perfect:</strong> shall/will + have + V3</p>
+            <p class="text-slate-400 text-sm">Future Perfect Continuous is rarely used.</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+            <h3 class="text-xl font-bold text-rose-400 mb-2">185–189. Strong, Weak & Confusing Verbs</h3>
+            <p><strong>Strong:</strong> change inside vowel (sing–sang–sung)</p>
+            <p><strong>Weak:</strong> add -d/-t (work–worked)</p>
+            <p><strong>Zero-change:</strong> cut, put, hit, cost, shut…</p>
+            <p class="mt-2"><strong>Lie (rest)</strong> lie–lay–lain &nbsp;|&nbsp; <strong>Lie (false)</strong> lie–lied–lied &nbsp;|&nbsp; <strong>Lay (put)</strong> lay–laid–laid</p>
+            <p><strong>Hang (suspend)</strong> hung &nbsp;|&nbsp; <strong>Hang (execute)</strong> hanged</p>
+            <p><strong>Fly</strong> flew–flown &nbsp;|&nbsp; <strong>Flee</strong> fled &nbsp;|&nbsp; <strong>Flow</strong> flowed</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRESENT -->
+      <section id="present" class="section">
+        <h2 class="text-2xl font-bold mb-4 text-emerald-400">Present Tenses</h2>
+        <div class="space-y-4">
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Present Indefinite</h3>
+            <p class="font-mono text-sm mb-2">I/You/We/They write &nbsp;•&nbsp; He/She/It writes</p>
+            <p class="text-blue-300 text-sm">নিত্য সত্য, অভ্যাস, স্থায়ী অবস্থা, নির্দিষ্ট ভবিষ্যৎ।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Present Continuous</h3>
+            <p class="font-mono text-sm mb-2">I am writing &nbsp;•&nbsp; He is writing &nbsp;•&nbsp; They are writing</p>
+            <p class="text-blue-300 text-sm">এখন চলমান কাজ বা আসন্ন পরিকল্পনা।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Present Perfect</h3>
+            <p class="font-mono text-sm mb-2">I/You/We/They have written &nbsp;•&nbsp; He/She has written</p>
+            <p class="text-blue-300 text-sm">এইমাত্র শেষ; বর্তমান ফল; সময় এখনও শেষ হয়নি।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Present Perfect Continuous</h3>
+            <p class="font-mono text-sm mb-2">has/have been writing</p>
+            <p class="text-blue-300 text-sm">অতীতে শুরু হয়ে এখনও চলছে। for / since</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAST -->
+      <section id="past" class="section">
+        <h2 class="text-2xl font-bold mb-4 text-amber-400">Past Tenses</h2>
+        <div class="space-y-4">
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Past Indefinite</h3>
+            <p class="font-mono text-sm mb-2">I wrote &nbsp;•&nbsp; He wrote &nbsp;•&nbsp; did + V1 (negative/question)</p>
+            <p class="text-blue-300 text-sm">অতীতের একক কাজ বা অভ্যাস।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Past Continuous</h3>
+            <p class="font-mono text-sm mb-2">was/were + V-ing</p>
+            <p class="text-blue-300 text-sm">অতীতের কোনো মুহূর্তে চলমান কাজ।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Past Perfect</h3>
+            <p class="font-mono text-sm mb-2">had + V3</p>
+            <p class="text-blue-300 text-sm">অন্য অতীত কাজের আগে সম্পন্ন। <em>Before before, after after.</em></p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Past Perfect Continuous</h3>
+            <p class="font-mono text-sm mb-2">had been + V-ing</p>
+            <p class="text-blue-300 text-sm">অতীতের কোনো সময় পর্যন্ত চলমান কাজ।</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FUTURE -->
+      <section id="future" class="section">
+        <h2 class="text-2xl font-bold mb-4 text-violet-400">Future Tenses</h2>
+        <div class="space-y-4">
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Future Indefinite</h3>
+            <p class="font-mono text-sm mb-2">shall/will + V1</p>
+            <p class="text-blue-300 text-sm">ভবিষ্যতে ঘটবে এমন কাজ।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Future Continuous</h3>
+            <p class="font-mono text-sm mb-2">shall/will + be + V-ing</p>
+            <p class="text-blue-300 text-sm">ভবিষ্যতের কোনো সময়ে চলমান কাজ।</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold text-lg mb-2">Future Perfect</h3>
+            <p class="font-mono text-sm mb-2">shall/will + have + V3</p>
+            <p class="text-blue-300 text-sm">ভবিষ্যতের কোনো সময়ের আগে সম্পন্ন কাজ।</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- VERBS -->
+      <section id="verbs" class="section">
+        <h2 class="text-2xl font-bold mb-4">Strong & Weak Verbs</h2>
+        <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 mb-4">
+          <h3 class="font-bold mb-2">Strong Verbs</h3>
+          <p class="text-sm text-slate-300">Change inside vowel; no -d/-t in Past. sing–sang–sung • go–went–gone • write–wrote–written • take–took–taken</p>
+        </div>
+        <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 mb-4">
+          <h3 class="font-bold mb-2">Weak Verbs</h3>
+          <p class="text-sm text-slate-300">Add -d or -t. work–worked • play–played • bend–bent • bleed–bled</p>
+        </div>
+        <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+          <h3 class="font-bold mb-2">Zero-change (189)</h3>
+          <p class="text-sm text-slate-300">bet, burst, cast, cost, cut, hit, hurt, let, put, rid, set, shed, shut, split, spread, thrust</p>
+        </div>
+      </section>
+
+      <!-- CONFUSING -->
+      <section id="confusing" class="section">
+        <h2 class="text-2xl font-bold mb-4 text-rose-400">Confusing Verbs</h2>
+        <div class="space-y-4">
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold mb-2">Lie / Lay</h3>
+            <p><strong>Lie (rest)</strong> lie – lay – lain (intransitive)</p>
+            <p><strong>Lie (false)</strong> lie – lied – lied</p>
+            <p><strong>Lay (put)</strong> lay – laid – laid (transitive)</p>
+            <p class="text-blue-300 text-sm mt-1">থাকা → lain | মিথ্যা → lied | রাখা → laid</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold mb-2">Hang</h3>
+            <p>Suspend → hung &nbsp;|&nbsp; Execute → hanged</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold mb-2">Fly / Flee / Flow</h3>
+            <p>fly → flew – flown &nbsp;|&nbsp; flee → fled &nbsp;|&nbsp; flow → flowed</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold mb-2">Born / Borne</h3>
+            <p>bear (birth) → born &nbsp;|&nbsp; bear (carry) → borne</p>
+          </div>
+          <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700">
+            <h3 class="font-bold mb-2">Strike / Stroke</h3>
+            <p>strike → struck / stricken &nbsp;|&nbsp; stroke → stroked</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONJUGATION -->
+      <section id="conjugation" class="section">
+        <h2 class="text-2xl font-bold mb-4">Conjugation of “to love”</h2>
+        <div class="overflow-x-auto bg-slate-800 rounded-2xl border border-slate-700 p-4">
+          <table class="w-full text-sm">
+            <thead><tr class="text-left text-slate-400"><th class="p-2">Tense</th><th class="p-2">Active</th><th class="p-2">Passive</th></tr></thead>
+            <tbody class="divide-y divide-slate-700">
+              <tr><td class="p-2">Present Indefinite</td><td class="p-2">I love</td><td class="p-2">I am loved</td></tr>
+              <tr><td class="p-2">Present Continuous</td><td class="p-2">I am loving</td><td class="p-2">I am being loved</td></tr>
+              <tr><td class="p-2">Present Perfect</td><td class="p-2">I have loved</td><td class="p-2">I have been loved</td></tr>
+              <tr><td class="p-2">Past Indefinite</td><td class="p-2">I loved</td><td class="p-2">I was loved</td></tr>
+              <tr><td class="p-2">Past Continuous</td><td class="p-2">I was loving</td><td class="p-2">I was being loved</td></tr>
+              <tr><td class="p-2">Past Perfect</td><td class="p-2">I had loved</td><td class="p-2">I had been loved</td></tr>
+              <tr><td class="p-2">Future Indefinite</td><td class="p-2">I shall love</td><td class="p-2">I shall be loved</td></tr>
+              <tr><td class="p-2">Future Perfect</td><td class="p-2">I shall have loved</td><td class="p-2">I shall have been loved</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- QUIZ -->
       <section id="quiz" class="section">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div>
             <h2 class="text-2xl font-bold">Question Bank (110)</h2>
-            <p class="text-slate-400 text-sm">Interactive quizzes • Instant feedback • Score tracking</p>
+            <p class="text-slate-400 text-sm">Interactive • Instant feedback • Score tracking</p>
           </div>
           <div class="flex gap-2">
             <button onclick="window.print()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm font-medium no-print">🖨️ Print</button>
@@ -160,11 +379,13 @@
           </div>
         </div>
       </section>
+
     </main>
   </div>
 
   <footer class="text-center text-slate-500 text-sm py-8 border-t border-slate-800 mt-12 no-print">
     <p>Based on A Text-Book of Higher English Grammar • Arts. 172–190</p>
+    <p class="mt-1">Tenses Master PWA • Works offline after first visit</p>
   </footer>
 
   <script src="questions-data.js"></script>
