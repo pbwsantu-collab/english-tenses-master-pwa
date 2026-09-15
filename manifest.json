@@ -1,11 +1,12 @@
 {
   "name": "English Tenses Master - Complete Grammar Guide",
   "short_name": "Tenses Master",
-  "description": "Powerful interactive guide to English Tenses with Bengali explanations, full rules, conjugation tables and extensive question bank. Works offline.",
+  "description": "Complete English Tenses (Art. 172–190) with Bengali explanations, conjugation tables and 200 practice questions. Works offline.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0f172a",
-  "theme_color": "#1e40af",
+  "theme_color": "#0f172a",
   "orientation": "any",
   "icons": [
     {
