@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tenses-master-v2';
+const CACHE_NAME = 'tenses-master-v3';
 const ASSETS = [
   './',
   './index.html',
