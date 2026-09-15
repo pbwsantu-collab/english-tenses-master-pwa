@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>English Tenses Master | সম্পূর্ণ কাল গাইড</title>
 <link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="teach.css">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon.svg">
 <meta name="apple-mobile-web-app-title" content="Tenses Master">
@@ -224,7 +225,12 @@
   <button class="menu-toggle" onclick="document.querySelector('nav.main-nav').classList.toggle('open')" aria-label="Menu">☰</button>
   <div class="logo">📚 Tenses Grammar</div>
   <nav class="main-nav" id="mainNav">
-    <a href="#intro">Intro</a>
+    <a href="#lab">Learn Lab</a>
+    <a href="#chooser">Finder</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#flash">Flash</a>
+    <a href="#compare">Compare</a>
+    <a href="#intro">Rules</a>
     <a href="#present">Present</a>
     <a href="#past">Past</a>
     <a href="#future">Future</a>
@@ -235,6 +241,10 @@
     <a href="#exercises">Exercises</a>
     <a href="#questions">200 Questions</a>
   </nav>
+  <div class="search-wrap no-print">
+    <input id="siteSearch" type="search" placeholder="Search rules, tenses…" autocomplete="off">
+    <div id="searchHits"></div>
+  </div>
   <div class="actions">
     <div class="score-pill" id="scorePill" title="Your marks out of 200">
       <span id="scoreGot">0</span>/200 <small>marks</small>
@@ -244,6 +254,114 @@
 </header>
 
 <div class="container">
+
+  <section id="lab" class="hero-lab">
+    <p class="kicker">Concept first · তারপর নিয়ম</p>
+    <h1>See time. Then name the tense.</h1>
+    <p>ইংরেজি কাল মুখস্থ নয় — <strong>সময়রেখায় কাজটি কোথায়</strong> তা দেখে চয়ন করুন। All original rules below are unchanged.</p>
+    <p id="learnProg" class="bn">0/12 tenses explored</p>
+    <div class="path">
+      <a href="#lab"><b>1. Map</b>Tap a cell on the 12-tense grid</a>
+      <a href="#chooser"><b>2. Finder</b>Answer 3 questions → get the tense</a>
+      <a href="#timeline"><b>3. Timeline</b>Watch the action on PAST–NOW–FUTURE</a>
+      <a href="#questions"><b>4. Practice</b>200 marks · write then check</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>The 12-Tense Map · ১২ কালের মানচিত্র</h2>
+    <p>প্রতিটি ঘরে ক্লিক করুন। Formula, meaning, signal words and a spoken example open below.</p>
+    <div class="grid-12">
+      <div></div>
+      <div class="g-head">Indefinite<br>সাধারণ</div>
+      <div class="g-head">Continuous<br>ঘটমান</div>
+      <div class="g-head">Perfect<br>পূর্ণ</div>
+      <div class="g-head">Perfect Continuous<br>পূর্ণ ঘটমান</div>
+      <div class="g-side">Present</div>
+      <div class="g-cell" data-id="pi"><div class="en">I write</div><div class="fm">V1 (s/es)</div><div class="bn">নিত্য/অভ্যাস</div></div>
+      <div class="g-cell" data-id="pc"><div class="en">I am writing</div><div class="fm">am/is/are + V-ing</div><div class="bn">এখন চলছে</div></div>
+      <div class="g-cell" data-id="pp"><div class="en">I have written</div><div class="fm">has/have + V3</div><div class="bn">এইমাত্র/ফল আছে</div></div>
+      <div class="g-cell" data-id="ppc"><div class="en">I have been writing</div><div class="fm">has/have been + V-ing</div><div class="bn">শুরু, এখনও চলে</div></div>
+      <div class="g-side">Past</div>
+      <div class="g-cell" data-id="psi"><div class="en">I wrote</div><div class="fm">V2</div><div class="bn">শেষ অতীত</div></div>
+      <div class="g-cell" data-id="psc"><div class="en">I was writing</div><div class="fm">was/were + V-ing</div><div class="bn">অতীতে চলছিল</div></div>
+      <div class="g-cell" data-id="psp"><div class="en">I had written</div><div class="fm">had + V3</div><div class="bn">আরও আগের অতীত</div></div>
+      <div class="g-cell" data-id="pspc"><div class="en">I had been writing</div><div class="fm">had been + V-ing</div><div class="bn">অতীত পর্যন্ত চলছিল</div></div>
+      <div class="g-side">Future</div>
+      <div class="g-cell" data-id="fi"><div class="en">I shall write</div><div class="fm">shall/will + V1</div><div class="bn">হবে</div></div>
+      <div class="g-cell" data-id="fc"><div class="en">I shall be writing</div><div class="fm">shall/will be + V-ing</div><div class="bn">তখন চলবে</div></div>
+      <div class="g-cell" data-id="fp"><div class="en">I shall have written</div><div class="fm">shall/will have + V3</div><div class="bn">তার আগে শেষ</div></div>
+      <div class="g-cell" data-id="fpc"><div class="en">(rare)</div><div class="fm">will have been + V-ing</div><div class="bn">ব্যবহার কম</div></div>
+    </div>
+    <div id="tensePanel" class="tense-panel"></div>
+  </section>
+
+  <section id="chooser">
+    <h2>Tense Finder · কোন কাল?</h2>
+    <p>তিনটি প্রশ্নের উত্তর দিন। সিস্টেম আপনাকে সঠিক কালে নিয়ে যাবে — মুখস্থ নয়, সিদ্ধান্ত।</p>
+    <div id="wizBox"></div>
+  </section>
+
+  <section id="timeline">
+    <h2>Time Line · সময়রেখা</h2>
+    <p><strong>NOW</strong> হলো নীল রেখা। Indefinite = বিন্দু, Continuous = দণ্ড, Perfect = NOW-এর আগে শেষ।</p>
+    <div class="timeline-wrap">
+      <svg id="tlSvg" class="tl-svg" viewBox="0 0 500 160" role="img" aria-label="Tense timeline"></svg>
+      <p id="tlNote">Tap a tense to place it on the line.</p>
+      <div class="tl-btns">
+        <button type="button" data-k="pi">Present Indef.</button>
+        <button type="button" data-k="pc">Present Cont.</button>
+        <button type="button" data-k="pp">Present Perfect</button>
+        <button type="button" data-k="ppc" class="on">Pres. Perf. Cont.</button>
+        <button type="button" data-k="psi">Past Indef.</button>
+        <button type="button" data-k="psc">Past Cont.</button>
+        <button type="button" data-k="psp">Past Perfect</button>
+        <button type="button" data-k="fi">Future Indef.</button>
+        <button type="button" data-k="fc">Future Cont.</button>
+        <button type="button" data-k="fp">Future Perfect</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="flash">
+    <h2>Concept Flashcards · ধারণা কার্ড</h2>
+    <p>২৪টি মূল ধারণা। কার্ডে ট্যাপ করে উল্টান। নিয়ম নয় — <em>কেন</em> সেই নিয়ম।</p>
+    <div id="flashCard" class="flash-card"><div class="front"></div><div class="back"></div></div>
+    <div class="flash-nav no-print">
+      <button type="button" class="btn" id="flashPrev">← Prev</button>
+      <span id="flashPos">1 / 24</span>
+      <button type="button" class="btn" id="flashNext">Next →</button>
+    </div>
+  </section>
+
+  <section id="compare">
+    <h2>Compare two tenses · দুটি কাল পাশাপাশি</h2>
+    <p>সবচেয়ে বড় বিভ্রান্তি দূর করতে দুটি কাল একসাথে দেখুন (যেমন Present Perfect vs Simple Past)।</p>
+    <p>
+      <select id="cmpA" class="sel"></select>
+      <select id="cmpB" class="sel"></select>
+    </p>
+    <div class="compare-box">
+      <div class="c-col" id="cmpLeft"></div>
+      <div class="c-col" id="cmpRight"></div>
+    </div>
+  </section>
+
+  <section id="mistakes">
+    <h2>Trap door · সাধারণ ভুল</h2>
+    <p>ক্লাসরুমের সবচেয়ে ব্যয়বহুল ভুলগুলো — লাল = ভুল, সবুজ = সঠিক।</p>
+    <div class="err-grid">
+      <div class="err"><b class="bad">I have seen him yesterday.</b><br><b class="ok">I saw him yesterday.</b><br><span class="bn">ago / yesterday / last → Simple Past</span></div>
+      <div class="err"><b class="bad">I am knowing the answer.</b><br><b class="ok">I know the answer.</b><br><span class="bn">state verb-এ Continuous নয়</span></div>
+      <div class="err"><b class="bad">He has died last year.</b><br><b class="ok">He died last year.</b><br><span class="bn">শেষ সময় উল্লেখ থাকলে Perfect নয়</span></div>
+      <div class="err"><b class="bad">The book has lain? No: has laid on the table (if put).</b><br><b class="ok">It has lain here. / He has laid it here.</b><br><span class="bn">lie=থাকা · lay=রাখা</span></div>
+      <div class="err"><b class="bad">I will tell him when he will come.</b><br><b class="ok">I will tell him when he comes.</b><br><span class="bn">time clause-এ will নয়</span></div>
+      <div class="err"><b class="bad">The river has overflown.</b><br><b class="ok">The river has overflowed.</b><br><span class="bn">flowed ≠ flown</span></div>
+      <div class="err"><b class="bad">I am living here since 2010.</b><br><b class="ok">I have been living here since 2010.</b><br><span class="bn">since + Perfect Continuous</span></div>
+      <div class="err"><b class="bad">The murderer was hung.</b><br><b class="ok">The murderer was hanged.</b><br><span class="bn">hung = ঝোলানো, hanged = ফাঁসি</span></div>
+    </div>
+  </section>
+
   <!-- INTRO -->
   <section id="intro">
     <h1>CHAPTER XIII — TENSES</h1>
@@ -1267,5 +1385,6 @@
 
   applyState();
 </script>
+<script src="teach.js"></script>
 </body>
 </html>

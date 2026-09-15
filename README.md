@@ -5,6 +5,10 @@ Live: https://pbwsantu-collab.github.io/english-tenses-master-pwa/
 Complete Progressive Web App for **Chapter XIII — Tenses** (Higher English Grammar), with Bengali explanations.
 
 ## Features
+- Interactive **Learn Lab**: 12-tense map, tense finder, SVG timeline, flashcards, compare
+- Search, listen (speech), common-mistake traps
+- Classroom wall chart (Canva) for teachers
+
 - All rules (Art. 172–190), notes, tables and conjugations
 - Confusing verbs (lie/lay, hang, fly/flee/flow, born/borne, etc.)
 - Full conjugation of *to love* (active & passive)

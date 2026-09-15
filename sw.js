@@ -1,9 +1,11 @@
-const CACHE_NAME = 'tenses-master-v3';
+const CACHE_NAME = 'tenses-master-v4';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './teach.js',
+  './teach.css'
 ];
 
 self.addEventListener('install', (event) => {
