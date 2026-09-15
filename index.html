@@ -53,7 +53,6 @@
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
 
-  <!-- Install Banner -->
   <div id="installBanner" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:w-96 bg-primary-700 text-white p-4 rounded-2xl shadow-2xl z-50 flex items-center justify-between gap-3 no-print">
     <div>
       <p class="font-semibold">Install Tenses Master</p>
@@ -65,7 +64,6 @@
     </div>
   </div>
 
-  <!-- Header -->
   <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-700 no-print">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -76,32 +74,17 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-slate-800" title="Toggle theme">
-          <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-        </button>
-        <button onclick="window.print()" class="p-2 rounded-lg hover:bg-slate-800" title="Print">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-        </button>
-        <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-800">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+        <button onclick="window.print()" class="p-2 rounded-lg hover:bg-slate-800" title="Print">🖨️</button>
+        <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-slate-800">☰</button>
       </div>
     </div>
   </header>
 
   <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row gap-6">
-    <!-- Sidebar Nav -->
     <nav id="sidebar" class="md:w-64 flex-shrink-0 no-print">
       <div class="sticky top-20 space-y-1 bg-slate-800/50 rounded-2xl p-3 border border-slate-700">
         <button data-section="home" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium bg-primary-600 text-white">🏠 Home</button>
-        <button data-section="rules" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">📘 All Rules</button>
-        <button data-section="present" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">▶ Present</button>
-        <button data-section="past" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">◀ Past</button>
-        <button data-section="future" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">▶ Future</button>
-        <button data-section="verbs" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">🔄 Strong & Weak</button>
-        <button data-section="confusing" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">⚠️ Confusing Verbs</button>
         <button data-section="quiz" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">🎯 Question Bank</button>
-        <button data-section="conjugation" class="nav-btn w-full text-left px-4 py-2.5 rounded-xl font-medium hover:bg-slate-700 text-slate-300">📋 Conjugation</button>
         <div class="pt-3 border-t border-slate-700 mt-2">
           <p class="text-xs text-slate-500 px-4 mb-1">Progress</p>
           <div class="px-4">
@@ -114,79 +97,43 @@
       </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="flex-1 min-w-0">
-
-      <!-- HOME -->
       <section id="home" class="section active">
         <div class="bg-gradient-to-br from-primary-700 to-primary-900 rounded-3xl p-8 mb-8 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
           <h2 class="text-3xl md:text-4xl font-extrabold mb-3">Master English Tenses</h2>
-          <p class="text-primary-100 text-lg mb-6 max-w-xl">সম্পূর্ণ নিয়ম • বাংলা ব্যাখ্যা • বিস্তৃত প্রশ্ন ব্যাংক • Offline Ready</p>
+          <p class="text-primary-100 text-lg mb-6 max-w-xl">সম্পূর্ণ নিয়ম • বাংলা ব্যাখ্যা • 110+ প্রশ্ন • Offline Ready</p>
           <div class="flex flex-wrap gap-3">
-            <button onclick="showSection('rules')" class="px-5 py-2.5 bg-white text-primary-800 font-semibold rounded-xl shadow-lg hover:bg-primary-50 transition">Start Learning</button>
-            <button onclick="showSection('quiz')" class="px-5 py-2.5 bg-primary-500/30 border border-white/30 text-white font-semibold rounded-xl hover:bg-primary-500/50 transition">Take Quiz</button>
+            <button onclick="showSection('quiz')" class="px-5 py-2.5 bg-white text-primary-800 font-semibold rounded-xl shadow-lg hover:bg-primary-50 transition">Take Quiz</button>
             <button onclick="speakText('Welcome to Tenses Master. Complete English grammar guide with Bengali explanations.')" class="px-5 py-2.5 bg-primary-500/30 border border-white/30 text-white font-semibold rounded-xl hover:bg-primary-500/50 transition">🔊 Listen</button>
           </div>
         </div>
-
         <div class="grid md:grid-cols-3 gap-4 mb-8">
           <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover">
             <div class="text-3xl mb-2">📘</div>
             <h3 class="font-bold text-lg mb-1">All Rules Covered</h3>
-            <p class="text-slate-400 text-sm">Every rule from Art. 172–190 explained clearly with Bengali.</p>
+            <p class="text-slate-400 text-sm">Art. 172–190 with Bengali.</p>
           </div>
           <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover">
             <div class="text-3xl mb-2">🎯</div>
-            <h3 class="font-bold text-lg mb-1">110+ Questions</h3>
-            <p class="text-slate-400 text-sm">Interactive quizzes with instant feedback & score tracking.</p>
+            <h3 class="font-bold text-lg mb-1">110 Questions</h3>
+            <p class="text-slate-400 text-sm">Interactive with instant feedback.</p>
           </div>
           <div class="bg-slate-800 rounded-2xl p-5 border border-slate-700 card-hover">
             <div class="text-3xl mb-2">📱</div>
             <h3 class="font-bold text-lg mb-1">PWA • Offline</h3>
-            <p class="text-slate-400 text-sm">Install on your device and study without internet.</p>
-          </div>
-        </div>
-
-        <div class="bg-slate-800/60 rounded-2xl p-6 border border-slate-700">
-          <h3 class="font-bold text-xl mb-4">Quick Tense Chart</h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="bg-primary-800 text-left">
-                  <th class="p-3 rounded-tl-lg">Tense</th>
-                  <th class="p-3">Indefinite</th>
-                  <th class="p-3">Continuous</th>
-                  <th class="p-3">Perfect</th>
-                  <th class="p-3 rounded-tr-lg">Perfect Continuous</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-700">
-                <tr><td class="p-3 font-medium">Present</td><td class="p-3">I write</td><td class="p-3">I am writing</td><td class="p-3">I have written</td><td class="p-3">I have been writing</td></tr>
-                <tr class="bg-slate-800/50"><td class="p-3 font-medium">Past</td><td class="p-3">I wrote</td><td class="p-3">I was writing</td><td class="p-3">I had written</td><td class="p-3">I had been writing</td></tr>
-                <tr><td class="p-3 font-medium">Future</td><td class="p-3">I shall write</td><td class="p-3">I shall be writing</td><td class="p-3">I shall have written</td><td class="p-3 text-slate-500">rarely used</td></tr>
-              </tbody>
-            </table>
+            <p class="text-slate-400 text-sm">Install and study offline.</p>
           </div>
         </div>
       </section>
 
-      <!-- Rest of sections are loaded via the full local file. See the complete version in the repository. -->
-      <section id="rules" class="section"><h2 class="text-2xl font-bold mb-4">All Rules</h2><p class="text-slate-400">Open the full local index.html or visit the live demo for complete content.</p></section>
-      <section id="present" class="section"><h2 class="text-2xl font-bold mb-4 text-emerald-400">Present Tenses</h2></section>
-      <section id="past" class="section"><h2 class="text-2xl font-bold mb-4 text-amber-400">Past Tenses</h2></section>
-      <section id="future" class="section"><h2 class="text-2xl font-bold mb-4 text-violet-400">Future Tenses</h2></section>
-      <section id="verbs" class="section"><h2 class="text-2xl font-bold mb-4">Strong & Weak Verbs</h2></section>
-      <section id="confusing" class="section"><h2 class="text-2xl font-bold mb-4 text-rose-400">Confusing Verbs</h2></section>
-      <section id="conjugation" class="section"><h2 class="text-2xl font-bold mb-4">Conjugation of to love</h2></section>
       <section id="quiz" class="section">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div>
-            <h2 class="text-2xl font-bold">Question Bank (110+)</h2>
+            <h2 class="text-2xl font-bold">Question Bank (110)</h2>
             <p class="text-slate-400 text-sm">Interactive quizzes • Instant feedback • Score tracking</p>
           </div>
           <div class="flex gap-2">
-            <button onclick="window.print()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm font-medium no-print">🖨️ Print Questions</button>
+            <button onclick="window.print()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm font-medium no-print">🖨️ Print</button>
             <button id="resetQuizBtn" class="px-4 py-2 bg-rose-700 hover:bg-rose-600 rounded-xl text-sm font-medium no-print">Reset Score</button>
           </div>
         </div>
@@ -213,15 +160,14 @@
           </div>
         </div>
       </section>
-
     </main>
   </div>
 
   <footer class="text-center text-slate-500 text-sm py-8 border-t border-slate-800 mt-12 no-print">
     <p>Based on A Text-Book of Higher English Grammar • Arts. 172–190</p>
-    <p class="mt-1">Tenses Master PWA • Works offline after first visit</p>
   </footer>
 
+  <script src="questions-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
